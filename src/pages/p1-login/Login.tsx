@@ -23,8 +23,8 @@ const Login = () => {
 
     const formik = useFormik({
         initialValues: {
-            email: '',
-            password: '',
+            email: 'nya-admin@nya.nya',
+            password: '1qazxcvBG',
             rememberMe: false
         },
         validate: (values) => {
@@ -48,7 +48,7 @@ const Login = () => {
     })
 
     if(isLoggedIn) {
-        return <Navigate to={'/'}/>
+        return <Navigate to={'/profile'}/>
     }
 
 
