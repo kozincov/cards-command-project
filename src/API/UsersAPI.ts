@@ -2,7 +2,7 @@ import {instance} from "./instance";
 
 export const UsersAPI = {
     login(data:LoginArgsType) {
-        return instance.post<LoginResponseType>(`/auth/login`, {data})
+        return instance.post<LoginResponseType>(`/auth/login`, data)
             .then(res => res.data)
     },
 }
@@ -14,14 +14,14 @@ export type LoginArgsType = {
     rememberMe: boolean
 }
 
-export type LoginResponseType = {
+export type LoginResponseType<D={}> = {
     _id: string
     email: string
     name: string
     avatar?: string
     publicCardPacksCount: number// количество колод
-    created: Date
-    updated: Date
+    created: D
+    updated: D
     isAdmin: boolean
     verified: boolean // подтвердил ли почту
     rememberMe: boolean
