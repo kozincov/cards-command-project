@@ -6,8 +6,8 @@ const initialState = {
 }
 
 
-export const authReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
-    switch(action.type) {
+export const authReducer = (state: InitialStateType = initialState, action: LoginActionType): InitialStateType => {
+    switch (action.type) {
         case "login/SET-IS-LOGGED-IN":
             return {...state, isLoggedIn: action.value}
         default:
@@ -28,4 +28,4 @@ export const loginTC = (data: LoginArgsType) => (dispatch: Dispatch) => {
 
 //types
 type InitialStateType = typeof initialState
-type ActionType = ReturnType<typeof setIsLoggedInAC>
+export type LoginActionType = ReturnType<typeof setIsLoggedInAC>

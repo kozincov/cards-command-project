@@ -5,7 +5,7 @@ const initialState = {
     isRegisterIn: false
 }
 
-export const registerReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
+export const registerReducer = (state: InitialStateType = initialState, action: RegisterActionType): InitialStateType => {
     switch (action.type) {
         case "register/SET-IS-REGISTER-IN":
             return {...state, isRegisterIn: action.value}
@@ -19,10 +19,10 @@ export const setIsRegisterInAC = (value: boolean) => ({type: 'register/SET-IS-RE
 //thunks
 export const registerTC = (data: RegisterArgsType) => (dispatch: Dispatch) => {
     UsersAPI.register(data)
-        .then(()=>{
+        .then(() => {
             dispatch(setIsRegisterInAC(true))
         })
 }
 //types
 type InitialStateType = typeof initialState
-type ActionType = ReturnType<typeof setIsRegisterInAC>
+export type RegisterActionType = ReturnType<typeof setIsRegisterInAC>
