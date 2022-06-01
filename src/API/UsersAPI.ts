@@ -1,12 +1,15 @@
 import {instance} from "./instance";
 
 export const UsersAPI = {
-    login(data:LoginArgsType) {
+    login(data: LoginArgsType) {
         return instance.post<LoginResponseType>(`/auth/login`, data)
             .then(res => res.data)
     },
     register(data: RegisterArgsType) {
         return instance.post<RegisterResponseType>(`/auth/register`, data)
+    },
+    me() {
+        return instance.post<LoginResponseType>('auth/me')
     },
 }
 
@@ -17,7 +20,7 @@ export type LoginArgsType = {
     rememberMe: boolean
 }
 
-export type LoginResponseType<D={}> = {
+export type LoginResponseType<D = {}> = {
     _id: string
     email: string
     name: string
@@ -31,7 +34,7 @@ export type LoginResponseType<D={}> = {
     error?: string
 }
 
-export type RegisterResponseType={
+export type RegisterResponseType = {
     addedUser: {
         // не важные данные, просто для проверки
     } // чтобы посмотреть как выглядит созданный юзер
@@ -39,8 +42,8 @@ export type RegisterResponseType={
     error?: string;
 }
 
-export type RegisterArgsType={
+export type RegisterArgsType = {
     email: string
-    password:string
+    password: string
 
 }
