@@ -1,8 +1,8 @@
 import React from 'react';
 import {useFormik} from "formik";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {registerTC} from "../../reducers/register-reducer";
-import {AppStateType} from "../../reducers/store";
+import {AppStateType, useTypedDispatch} from "../../reducers/store";
 import {Navigate} from 'react-router-dom';
 import Input from "../../common/input/Input";
 import Button from '../../common/button/Button';
@@ -15,14 +15,14 @@ type FormikErrorType = {
 
 const SignUp = () => {
 
-    const dispatch = useDispatch()
+    const dispatch = useTypedDispatch()
     const isRegisterIn = useSelector<AppStateType, boolean>(state => state.register.isRegisterIn)
 
     const formik = useFormik({
         initialValues: {
-            email: 'nya-admin@nya.nya',
-            password: '1qazxcvBG',
-            confirmPassword: '1qazxcvBG',
+            email: '',
+            password: '',
+            confirmPassword: '',
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -47,7 +47,7 @@ const SignUp = () => {
             return errors;
         },
         onSubmit: (values) => {
-            dispatch(registerTC(values) as any)
+            dispatch(registerTC(values))
         },
     })
 
@@ -63,6 +63,7 @@ const SignUp = () => {
 
             <form onSubmit={formik.handleSubmit}>
                 <div>
+                    <label htmlFor="email">Email</label>
                     <Input
                         type={"email"}
                         {...formik.getFieldProps('email')}
@@ -72,6 +73,7 @@ const SignUp = () => {
                         : null}
                 </div>
                 <div>
+                    <label htmlFor="password">Password</label>
                     <Input
                         type={"password"}
                         error={!!(formik.touched.password && formik.errors.password)}
@@ -82,8 +84,9 @@ const SignUp = () => {
                         : null}
                 </div>
                 <div>
+                    <label htmlFor="confirmPassword">Confirm Password</label>
                     <Input
-                        type={"password"}
+                        type={"confirmPassword"}
                         error={!!(formik.touched.confirmPassword && formik.errors.confirmPassword)}
                         {...formik.getFieldProps('confirmPassword')}
                     />

@@ -2,17 +2,17 @@ import React from 'react';
 import Input from "../../common/input/Input";
 import Button from "../../common/button/Button";
 import Checkbox from "../../common/checkbox/Checkbox";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../reducers/store";
+import {useSelector} from "react-redux";
+import {AppStateType, useTypedDispatch} from "../../reducers/store";
 import {useFormik} from "formik";
-import { loginTC } from '../../reducers/auth-reduser';
-import { Navigate } from 'react-router-dom';
+import {loginTC} from '../../reducers/auth-reduser';
+import {Navigate} from 'react-router-dom';
 
 const Login = () => {
 
-    const dispatch = useDispatch()
+    const dispatch = useTypedDispatch()
 
-    const isLoggedIn = useSelector<AppStateType, boolean>((state)=> state.auth.isLoggedIn)
+    const isLoggedIn = useSelector<AppStateType, boolean>((state) => state.auth.isLoggedIn)
 
     type FormikErrorType = {
         email?: string
@@ -43,11 +43,11 @@ const Login = () => {
             return errors;
         },
         onSubmit: values => {
-            dispatch(loginTC(values)as any)
+            dispatch(loginTC(values))
         },
     })
 
-    if(isLoggedIn) {
+    if (isLoggedIn) {
         return <Navigate to={'/profile'}/>
     }
 
